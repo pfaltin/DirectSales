@@ -14,64 +14,35 @@ namespace DirectSales04.Areas.Identity.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            // Postavke za seedanje uloga (eng.: roles) i glavnog administratora
 
-            // Tablica AspNetRoles - Identity klasa IdentityRole
-            string adminRoleId = "6217999e-a9fb-448b-b163-e2305fc44f50";
-            string adminRoleTitle = "Admin";
-            string customerRoleId = "0e71d461-63e3-4aa5-be93-d701a5a1f913";
-            string customerRoleTitle = "Customer";
+
+
+            string AdminRoleId = "5109cf15 - d38d - 4fe9 - b385 - 2972b2d2bb20";
+            string AdminRoleTitle = "Admins";
+            string UserRoleId = "41112308 - 4603 - 420b - be22 - 3af8a2166be1";
+            string UserRoleTitle = "Customers";
 
             builder.Entity<IdentityRole>().HasData(
-                new IdentityRole()
-                {
-                    Id = adminRoleId,
-                    Name = adminRoleTitle,
-                    NormalizedName = adminRoleTitle.ToUpper()
-                },
-                new IdentityRole()
-                {
-                    Id = customerRoleId,
-                    Name = customerRoleTitle,
-                    NormalizedName = customerRoleTitle.ToUpper()
-                }
-            );
+                new IdentityRole { Id = AdminRoleId, Name = AdminRoleTitle, NormalizedName = AdminRoleTitle.ToUpper() },
+                new IdentityRole { Id = UserRoleId, Name = UserRoleTitle, NormalizedName = UserRoleTitle.ToUpper() });
 
-            // Tablica AspNetUsers - Identity klasa ApplicationUser (izvorna: IdentityUser)
-            string adminId = "66412151-dd0c-4b69-82c8-0f4256e78f00";
-            string admin = "mico@admin.com"; /// i korisničko ime i email vrijednost
-            string adminFirstName = "Mićo";
-            string adminLastName = "Programerić";
-            string adminPassword = "secret";
-            string adminAddress = "Stara Cesta bb";
+            string adminUserId = "e4e48ebc - dde2 - 44ef - aa10 - f77c91acc588";
+            string adminUser = "admin@direct-sales.com";
+            string adminEmail = "admin@direct-sales.com";
+            string adminFirstName = "Tvrtko";
+            string adminLastName = "Tvrdic";
+            string adminPwd = "L0zinka09";
+            string adminAddr = "Donji Glib 56";
 
-            // Za Hash lozinke
             var hasher = new PasswordHasher<ApplicationUser>();
 
             builder.Entity<ApplicationUser>().HasData(
-                new ApplicationUser()
-                {
-                    Id = adminId,
-                    UserName = admin,
-                    NormalizedUserName = admin.ToUpper(),
-                    Email = admin,
-                    NormalizedEmail = admin.ToUpper(),
-                    FirstName = adminFirstName,
-                    LastName = adminLastName,
-                    Address = adminAddress,
-                    PasswordHash = hasher.HashPassword(null, adminPassword)
-                }
-            );
-
-            // Tablica AspNetUserRoles - Identity klasa IdentityUserRole<string> (veza između Users i Roles)
+                new ApplicationUser { Id = adminUserId, UserName = adminUser, FirstName = adminFirstName, LastName = adminLastName, Email = adminEmail, Address = adminAddr, PasswordHash = hasher.HashPassword(null, adminPwd), NormalizedUserName = adminUser.ToUpper(), NormalizedEmail = adminEmail.ToUpper() });
             builder.Entity<IdentityUserRole<string>>().HasData(
-                new IdentityUserRole<string>()
-                {
-                    UserId = adminId,
-                    RoleId = adminRoleId
-                }
-            );
+                new IdentityUserRole<string>() { UserId = adminUserId, RoleId = AdminRoleId });
 
+
+        }
 
 
         }

@@ -4,16 +4,18 @@ using DirectSales04.Areas.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DirectSales04.Data.Migrations
+namespace DirectSales04.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230627094739_InitalMigration")]
+    partial class InitalMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,22 +106,22 @@ namespace DirectSales04.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e4e48ebc - dde2 - 44ef - aa10 - f77c91acc588",
+                            Id = "66412151-dd0c-4b69-82c8-0f4256e78f00",
                             AccessFailedCount = 0,
-                            Address = "Donji Glib 56",
-                            ConcurrencyStamp = "d5111f80-d2c5-4d16-884a-d6a89a433255",
-                            Email = "admin@direct-sales.com",
+                            Address = "Stara Cesta bb",
+                            ConcurrencyStamp = "b9782f89-ce5f-42dd-9621-fa399b01e93b",
+                            Email = "mico@admin.com",
                             EmailConfirmed = false,
-                            FirstName = "Tvrtko",
-                            LastName = "Tvrdic",
+                            FirstName = "Mićo",
+                            LastName = "Programerić",
                             LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@DIRECT-SALES.COM",
-                            NormalizedUserName = "ADMIN@DIRECT-SALES.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPeRsF4ERzZ0T3y5D5wxHbjTKzK6iFnQILvr0I10jJc/Xqrp0lLXK6MKegGNjNDVHw==",
+                            NormalizedEmail = "MICO@ADMIN.COM",
+                            NormalizedUserName = "MICO@ADMIN.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMwNij5WVqsGPLHroJetYnUUWD/5/WbfkIJTj7Vuyngbw/pchCIKXAq6U4fIS0ohtQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "03c1a067-fac8-40fd-8c3e-85dcc3d0cbec",
+                            SecurityStamp = "1fad8052-6a94-4e49-b130-59f7d7c9ad14",
                             TwoFactorEnabled = false,
-                            UserName = "admin@direct-sales.com"
+                            UserName = "mico@admin.com"
                         });
                 });
 
@@ -152,17 +154,17 @@ namespace DirectSales04.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5109cf15 - d38d - 4fe9 - b385 - 2972b2d2bb20",
-                            ConcurrencyStamp = "ad3cccd8-8f19-4e8f-9f4c-fb9db709edb0",
-                            Name = "Admins",
-                            NormalizedName = "ADMINS"
+                            Id = "6217999e-a9fb-448b-b163-e2305fc44f50",
+                            ConcurrencyStamp = "d2d7112e-3cca-4fc6-a74e-c1cebecc7bd3",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "41112308 - 4603 - 420b - be22 - 3af8a2166be1",
-                            ConcurrencyStamp = "4d643cc9-c350-4ab9-b148-03bd491e4c02",
-                            Name = "Customers",
-                            NormalizedName = "CUSTOMERS"
+                            Id = "0e71d461-63e3-4aa5-be93-d701a5a1f913",
+                            ConcurrencyStamp = "0f0829c4-75b1-4dfa-94f4-11c5d8a30a53",
+                            Name = "Customer",
+                            NormalizedName = "CUSTOMER"
                         });
                 });
 
@@ -257,8 +259,8 @@ namespace DirectSales04.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "e4e48ebc - dde2 - 44ef - aa10 - f77c91acc588",
-                            RoleId = "5109cf15 - d38d - 4fe9 - b385 - 2972b2d2bb20"
+                            UserId = "66412151-dd0c-4b69-82c8-0f4256e78f00",
+                            RoleId = "6217999e-a9fb-448b-b163-e2305fc44f50"
                         });
                 });
 
