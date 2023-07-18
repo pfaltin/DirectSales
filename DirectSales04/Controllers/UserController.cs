@@ -1,10 +1,14 @@
 ﻿using DirectSales04.Areas.Identity.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
-namespace DirectSales04.Areas.Admin.Controllers
+namespace DirectSales04.Controllers
 {
+    
+    [Authorize(Roles = "Admins")]
     public class UserController : Controller
     {
 
