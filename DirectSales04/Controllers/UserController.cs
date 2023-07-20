@@ -24,7 +24,15 @@ namespace DirectSales04.Controllers
             _context = context;
         }
 
+
         // Create User
+        // GET: User/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+
         [HttpPost]
         public async Task<ActionResult> Create(ApplicationUser user, string password)
         {
@@ -49,6 +57,26 @@ namespace DirectSales04.Controllers
         }
 
         // Update User
+        // GET: User/Edit/5
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (id == null || _context.Users == null)
+            {
+                return NotFound();
+            }
+
+            var applicationUser = await _context.Users.FindAsync(id);
+            if (applicationUser == null)
+            {
+                return NotFound();
+            }
+            return View(applicationUser);
+        }
+
+
+
+
+
         [HttpPost]
         public async Task<ActionResult> Edit(ApplicationUser user)
         {
