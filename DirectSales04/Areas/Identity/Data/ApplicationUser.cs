@@ -16,5 +16,7 @@ namespace DirectSales04.Areas.Identity.Data
         [Required]
         [StringLength(150)]
         public string Address { get; set; }
+
+
     }
 }
