@@ -19,4 +19,20 @@ namespace DirectSales04.Areas.Identity.Data
 
 
     }
+
+
+    public class ApplicationUserViewModel
+    {
+
+        [StringLength(50)]
+        public string FirstName { get; set; }
+
+
+        [StringLength(50)]
+        public string LastName { get; set; }
+
+
+        [StringLength(150)]
+        public string Address { get; set; }
+    }
 }

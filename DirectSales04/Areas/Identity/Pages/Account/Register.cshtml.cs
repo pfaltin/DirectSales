@@ -149,7 +149,7 @@ namespace DirectSales04.Areas.Identity.Pages.Account
                 {
                     
                     // Dodaj ulogu korisniku koji se registrira preko stranica (Customer)
-                    var customerRole = _roleManager.FindByNameAsync("Customer").Result;
+                    var customerRole = _roleManager.FindByNameAsync("Customers").Result;
 
                     if (customerRole != null)
                     {

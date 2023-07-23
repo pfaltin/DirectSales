@@ -14,13 +14,13 @@ namespace DirectSales04.Controllers
 
 
         private readonly ApplicationDbContext _context;
-        private UserManager<ApplicationUser> userManager;
-        private RoleManager<IdentityRole> roleManager;
+        private UserManager<ApplicationUser> _userManager;
+        private RoleManager<IdentityRole> _roleManager;
 
         public UserController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext context)
         {
-            this.userManager = userManager;
-            this.roleManager = roleManager;
+            _userManager = userManager;
+            _roleManager = roleManager;
             _context = context;
         }
 
@@ -28,7 +28,11 @@ namespace DirectSales04.Controllers
         // Create User
         // GET: User/Create
         public IActionResult Create()
+
         {
+            string id = Guid.NewGuid().ToString();
+            ViewBag.newid = id;
+
             return View();
         }
 
@@ -36,22 +40,32 @@ namespace DirectSales04.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(ApplicationUser user, string password)
         {
-            var result = await userManager.CreateAsync(user, password);
-            // Handle the result and redirect or return appropriate response
+            // Dodaj ulogu korisniku koji se registrira preko stranica (Customer)
+
+
+            var result = await _userManager.CreateAsync(user, password);
+            var customerRole = _roleManager.FindByNameAsync("Customers").Result;
+
+            if (customerRole != null)
+            {
+                await _userManager.AddToRoleAsync(user, customerRole.Name);
+            }
+
+
             return View(user);
         }
 
         // Read User
         public async Task<ActionResult> Details(string id)
         {
-            var user = await userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id);
             // Pass the user object to the view for display
             return View(user);
         }
 
         public async Task<ActionResult> Index()
         {
-            var users = await userManager.Users.ToListAsync();
+            var users = await _userManager.Users.ToListAsync();
             // Pass the list of users to the view for display
             return View(users);
         }
@@ -75,24 +89,42 @@ namespace DirectSales04.Controllers
 
 
 
-
-
         [HttpPost]
         public async Task<ActionResult> Edit(ApplicationUser user)
         {
-            var result = await userManager.UpdateAsync(user);
-            // Handle the result and redirect or return appropriate response
+            var result = await _userManager.UpdateAsync(user);
+            
             return View(user);
+        }
+
+
+
+
+        // GET: User/Delete/5
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            if (id == null || _context.Users == null)
+            {
+                return NotFound();
+            }
+
+            var applicationUser = await _context.Users.FindAsync(id);
+            if (applicationUser == null)
+            {
+                return NotFound();
+            }
+            return View(applicationUser);
         }
 
         // Delete User
         [HttpPost]
         public async Task<ActionResult> Delete(string id)
         {
-            var user = await userManager.FindByIdAsync(id);
-            var result = await userManager.DeleteAsync(user);
+            var user = await _userManager.FindByIdAsync(id);
+            var result = await _userManager.DeleteAsync(user);
             // Handle the result and redirect or return appropriate response
-            return View();
+            var users = await _userManager.Users.ToListAsync();
+            return View("Index",users);
         }
 
 

@@ -12,7 +12,8 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" value="@ViewBag.newid" asp-for="Id" />
+
             <input type="hidden" asp-for="NormalizedUserName" />
             <input type="hidden" asp-for="NormalizedEmail" />
             <input type="hidden" asp-for="EmailConfirmed" />
