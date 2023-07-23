@@ -34,5 +34,16 @@ namespace DirectSales04.Areas.Identity.Data
 
         [StringLength(150)]
         public string Address { get; set; }
+
+        [StringLength(150)]
+        public string Email { get; set; }
+
+        [StringLength(150)]
+        public string PhoneNumber { get; set; }
+
+
+        [StringLength(400)]
+        public string Id { get; set; }
+
     }
 }

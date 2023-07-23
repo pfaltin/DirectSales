@@ -84,17 +84,46 @@ namespace DirectSales04.Controllers
             {
                 return NotFound();
             }
-            return View(applicationUser);
+            ApplicationUserViewModel viewModel = new ApplicationUserViewModel();
+            viewModel.Address = applicationUser.Address;
+            viewModel.Email = applicationUser.Email;
+            viewModel.FirstName = applicationUser.FirstName;
+            viewModel.LastName = applicationUser.LastName;
+            viewModel.PhoneNumber = applicationUser.PhoneNumber;
+            viewModel.Id = id;
+
+            return View(viewModel);
         }
 
 
 
         [HttpPost]
-        public async Task<ActionResult> Edit(ApplicationUser user)
+        public async Task<ActionResult> Edit(ApplicationUserViewModel editedUser)
         {
+
+            if (!ModelState.IsValid)
+                return View(editedUser);
+
+            var user = await _userManager.FindByIdAsync(editedUser.Id);
+            user.FirstName = editedUser.FirstName;
+            user.LastName = editedUser.LastName;    
+            user.PhoneNumber = editedUser.PhoneNumber;
+            user.Email = editedUser.Email;
+            user.FirstName = editedUser.FirstName;
+                
+
+            if (user == null)
+                return NotFound();
             var result = await _userManager.UpdateAsync(user);
-            
-            return View(user);
+
+            if (result.Succeeded)
+            {
+                // db.Entry(listdata).State = EntityState.Modified;
+                // db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(editedUser);
         }
 
 
