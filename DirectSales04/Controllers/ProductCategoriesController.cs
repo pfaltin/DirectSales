@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DirectSales04.Areas.Identity.Data;
 using DirectSales04.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace DirectSales04.Controllers
 {
+    [Authorize(Roles = "Admins")]
     public class ProductCategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -4,16 +4,18 @@ using DirectSales04.Areas.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DirectSales04.Data.Migrations
+namespace DirectSales04.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230727161325_AddedSaleSaleiem")]
+    partial class AddedSaleSaleiem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,7 +109,7 @@ namespace DirectSales04.Data.Migrations
                             Id = "e4e48ebc - dde2 - 44ef - aa10 - f77c91acc588",
                             AccessFailedCount = 0,
                             Address = "Donji Glib 56",
-                            ConcurrencyStamp = "d5d690d4-ca4b-46bc-8715-0db499369922",
+                            ConcurrencyStamp = "f4b9f82a-ea34-4fdf-8861-2441d163e274",
                             Email = "admin@direct-sales.com",
                             EmailConfirmed = false,
                             FirstName = "Tvrtko",
@@ -115,9 +117,9 @@ namespace DirectSales04.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@DIRECT-SALES.COM",
                             NormalizedUserName = "ADMIN@DIRECT-SALES.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ7Fi7mCl1cANx4ltYTgA+6ZeeQBHIGc77Ra4djvUGIouGUxyM2f830olm9ZlxhEXA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJzwFqdlTW46wZFFqUdOb7ExRmAJBYKRxRi8m4gPYUtLMUfkhIZIO1PFJkWGRUFeUw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "78e95659-72c9-41e8-b36b-349c851c58db",
+                            SecurityStamp = "e3913f48-ddee-459f-b205-316880eca669",
                             TwoFactorEnabled = false,
                             UserName = "admin@direct-sales.com"
                         });
@@ -822,43 +824,6 @@ namespace DirectSales04.Data.Migrations
                     b.HasIndex("ClientId");
 
                     b.ToTable("Sale");
-
-                    b.HasData(
-                        new
-                        {
-                            SalesId = 1,
-                            ClientId = 1,
-                            Date = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Remarks = "prva prodaja "
-                        },
-                        new
-                        {
-                            SalesId = 2,
-                            ClientId = 1,
-                            Date = new DateTime(2023, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Remarks = "druga prodaja "
-                        },
-                        new
-                        {
-                            SalesId = 3,
-                            ClientId = 2,
-                            Date = new DateTime(2023, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Remarks = "treca prodaja "
-                        },
-                        new
-                        {
-                            SalesId = 4,
-                            ClientId = 3,
-                            Date = new DateTime(2023, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Remarks = "cetvrta prodaja "
-                        },
-                        new
-                        {
-                            SalesId = 5,
-                            ClientId = 4,
-                            Date = new DateTime(2023, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Remarks = "peta prodaja "
-                        });
                 });
 
             modelBuilder.Entity("DirectSales04.Models.SaleItem", b =>
@@ -897,140 +862,6 @@ namespace DirectSales04.Data.Migrations
                     b.HasIndex("SaleId");
 
                     b.ToTable("SaleItem");
-
-                    b.HasData(
-                        new
-                        {
-                            SaleItemID = 1,
-                            Discount = 0,
-                            Price = 0m,
-                            ProductId = 5,
-                            Quantity = 2,
-                            SaleId = 1,
-                            Status = 0,
-                            SubTotal = 12.22m
-                        },
-                        new
-                        {
-                            SaleItemID = 2,
-                            Discount = 0,
-                            Price = 0m,
-                            ProductId = 11,
-                            Quantity = 1,
-                            SaleId = 1,
-                            Status = 0,
-                            SubTotal = 22.22m
-                        },
-                        new
-                        {
-                            SaleItemID = 3,
-                            Discount = 0,
-                            Price = 0m,
-                            ProductId = 12,
-                            Quantity = 2,
-                            SaleId = 2,
-                            Status = 1,
-                            SubTotal = 32.22m
-                        },
-                        new
-                        {
-                            SaleItemID = 4,
-                            Discount = 0,
-                            Price = 0m,
-                            ProductId = 6,
-                            Quantity = 3,
-                            SaleId = 2,
-                            Status = 1,
-                            SubTotal = 2.22m
-                        },
-                        new
-                        {
-                            SaleItemID = 5,
-                            Discount = 0,
-                            Price = 0m,
-                            ProductId = 3,
-                            Quantity = 5,
-                            SaleId = 2,
-                            Status = 1,
-                            SubTotal = 3.22m
-                        },
-                        new
-                        {
-                            SaleItemID = 6,
-                            Discount = 0,
-                            Price = 0m,
-                            ProductId = 4,
-                            Quantity = 7,
-                            SaleId = 3,
-                            Status = 4,
-                            SubTotal = 4.22m
-                        },
-                        new
-                        {
-                            SaleItemID = 7,
-                            Discount = 0,
-                            Price = 0m,
-                            ProductId = 8,
-                            Quantity = 8,
-                            SaleId = 3,
-                            Status = 4,
-                            SubTotal = 5.22m
-                        },
-                        new
-                        {
-                            SaleItemID = 8,
-                            Discount = 0,
-                            Price = 0m,
-                            ProductId = 19,
-                            Quantity = 9,
-                            SaleId = 3,
-                            Status = 5,
-                            SubTotal = 7.22m
-                        },
-                        new
-                        {
-                            SaleItemID = 9,
-                            Discount = 0,
-                            Price = 0m,
-                            ProductId = 21,
-                            Quantity = 2,
-                            SaleId = 4,
-                            Status = 2,
-                            SubTotal = 12.22m
-                        },
-                        new
-                        {
-                            SaleItemID = 10,
-                            Discount = 0,
-                            Price = 0m,
-                            ProductId = 15,
-                            Quantity = 3,
-                            SaleId = 4,
-                            Status = 2,
-                            SubTotal = 22.22m
-                        },
-                        new
-                        {
-                            SaleItemID = 11,
-                            Discount = 0,
-                            Price = 0m,
-                            ProductId = 16,
-                            Quantity = 4,
-                            SaleId = 5,
-                            Status = 1,
-                            SubTotal = 23.22m
-                        },
-                        new
-                        {
-                            SaleItemID = 12,
-                            Discount = 0,
-                            Price = 0m,
-                            ProductId = 17,
-                            Quantity = 2,
-                            SaleId = 5,
-                            Status = 1,
-                            SubTotal = 26.22m
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -1063,14 +894,14 @@ namespace DirectSales04.Data.Migrations
                         new
                         {
                             Id = "5109cf15 - d38d - 4fe9 - b385 - 2972b2d2bb20",
-                            ConcurrencyStamp = "c6c872a7-f189-4ba8-90f0-f9b68801d20f",
+                            ConcurrencyStamp = "ea8e8b3f-cf4b-46dc-92f3-0b50a76b73c6",
                             Name = "Admins",
                             NormalizedName = "ADMINS"
                         },
                         new
                         {
                             Id = "41112308 - 4603 - 420b - be22 - 3af8a2166be1",
-                            ConcurrencyStamp = "ddea2ede-29d5-47cf-9118-1c6e718dab47",
+                            ConcurrencyStamp = "3e80c141-7f28-447f-9a4b-517f7df4c9aa",
                             Name = "Customers",
                             NormalizedName = "CUSTOMERS"
                         });

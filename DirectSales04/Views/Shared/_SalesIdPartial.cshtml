@@ -1,0 +1,15 @@
+﻿@using DirectSales04.Areas.Identity.Data
+
+@*inject ApplicationDbContext _dbContext*@
+<!option value=ViewData["SaleId"] name="saleid" "></!option>
+    <div class="form-group">
+
+        <label class="control-label">Sale Id</label>
+        <div class="form-group">
+            <label asp-for="SaleId" class="control-label"></label>
+            <input asp-for="SaleId" class="form-control" />
+            <span asp-validation-for="SaleId" class="text-danger"></span>
+        </div>
+
+
+    </div>

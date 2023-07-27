@@ -1,0 +1,40 @@
+﻿@model DirectSales04.Models.Sale
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Sale</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Client)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Client.City)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Remarks)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Remarks)
+        </dd>
+        @Html.Partial("_SaleItemsPartial", ViewData["saleItems"])
+    </dl>
+</div>
+<p>
+    <a asp-action="SaleItemsCreate" asp-route-id="@Model?.SalesId">add new items to sale</a>
+</p>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.SalesId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
