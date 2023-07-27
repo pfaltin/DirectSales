@@ -23,6 +23,15 @@
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input type="hidden" asp-for="Image" class="form-control" />
+                <img src="~/images/products/@Model.Image" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Upload new image</label>
+                <input type="file" name="newImage" class="form-control" />
+            </div>
+            <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>

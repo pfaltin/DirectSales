@@ -6,7 +6,7 @@
 
     <label class="control-label">Select product categories</label>
 
-    <select class="form-control" name="categoryIds[]" multiple>
+    <select class="form-control" name="categoryId[]" multiple>
         @foreach (var categoryItem in _dbContext.Category.ToList())
         {
             <!option value="@categoryItem.CategoryId"
