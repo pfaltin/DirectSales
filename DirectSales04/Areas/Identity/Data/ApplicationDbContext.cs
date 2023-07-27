@@ -99,6 +99,34 @@ namespace DirectSales04.Areas.Identity.Data
 
 
 
+            builder.Entity<Sale>().HasData(
+                new Sale { ClientId = 1, SalesId = 1, Date = DateTime.Parse("1/01/2023"), Remarks = "prva prodaja " },
+                new Sale { ClientId = 1, SalesId = 2, Date = DateTime.Parse("2/02/2023"), Remarks = "druga prodaja " },
+                new Sale { ClientId = 2, SalesId = 3, Date = DateTime.Parse("3/03/2023"), Remarks = "treca prodaja " },
+                new Sale { ClientId = 3, SalesId = 4, Date = DateTime.Parse("4/04/2023"), Remarks = "cetvrta prodaja " },
+                new Sale { ClientId = 4, SalesId = 5, Date = DateTime.Parse("5/05/2023"), Remarks = "peta prodaja " });
+
+            builder.Entity<SaleItem>().HasData(
+                new SaleItem { SaleItemID = 1, ProductId = 5, Quantity = 2, SubTotal = 12.22M, SaleId = 1, Status = ItemStatus.Ordered },
+                new SaleItem { SaleItemID = 2, ProductId = 11, Quantity = 1, SubTotal = 22.22M, SaleId = 1, Status = ItemStatus.Ordered },
+                new SaleItem { SaleItemID = 3, ProductId = 12, Quantity = 2, SubTotal = 32.22M, SaleId = 2, Status = ItemStatus.IsAcquired },
+                new SaleItem { SaleItemID = 4, ProductId = 6, Quantity = 3, SubTotal = 2.22M, SaleId = 2, Status = ItemStatus.IsAcquired },
+                new SaleItem { SaleItemID = 5, ProductId = 3, Quantity = 5, SubTotal = 3.22M, SaleId = 2, Status = ItemStatus.IsAcquired },
+                new SaleItem { SaleItemID = 6, ProductId = 4, Quantity = 7, SubTotal = 4.22M, SaleId = 3, Status = ItemStatus.ChargedOff },
+                new SaleItem { SaleItemID = 7, ProductId = 8, Quantity = 8, SubTotal = 5.22M, SaleId = 3, Status = ItemStatus.ChargedOff },
+                new SaleItem { SaleItemID = 8, ProductId = 19, Quantity = 9, SubTotal = 7.22M, SaleId = 3, Status = ItemStatus.Cancelled },
+                new SaleItem { SaleItemID = 9, ProductId = 21, Quantity = 2, SubTotal = 12.22M, SaleId = 4, Status = ItemStatus.ForDelivery },
+                new SaleItem { SaleItemID = 10, ProductId = 15, Quantity = 3, SubTotal = 22.22M, SaleId = 4, Status = ItemStatus.ForDelivery },
+                new SaleItem { SaleItemID = 11, ProductId = 16, Quantity = 4, SubTotal = 23.22M, SaleId = 5, Status = ItemStatus.IsAcquired },
+                new SaleItem { SaleItemID = 12, ProductId = 17, Quantity = 2, SubTotal = 26.22M, SaleId = 5, Status = ItemStatus.IsAcquired }
+                );
+
+
+
+
+
+
+
 
 
             string AdminRoleId = "5109cf15 - d38d - 4fe9 - b385 - 2972b2d2bb20";
@@ -135,6 +163,10 @@ namespace DirectSales04.Areas.Identity.Data
         public DbSet<DirectSales04.Models.Client>? Client { get; set; }
 
         public DbSet<DirectSales04.Models.Category>? Category { get; set; }
+
+        public DbSet<DirectSales04.Models.Sale>? Sale { get; set; }
+
+        public DbSet<DirectSales04.Models.SaleItem>? SaleItem { get; set; }
 
 
         }

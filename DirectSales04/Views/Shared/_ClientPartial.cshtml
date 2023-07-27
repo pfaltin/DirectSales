@@ -1,0 +1,20 @@
+﻿@using DirectSales04.Areas.Identity.Data
+
+@inject ApplicationDbContext _dbContext
+
+<div class="form-group">
+
+    <label class="control-label">Select client</label>
+
+    <select class="form-control" name="ClientId">
+        @foreach (var client in _dbContext.Client.ToList())
+        {
+            <!option value="@client.ClientId"
+                     @if (ViewBag.Client != null) @(ViewBag.Client.Contains(client.ClientId) ? "selected" : "")
+                     >
+                @client.Title
+            </!option>
+        }
+    </select>
+
+</div>

@@ -1,0 +1,18 @@
+﻿@using DirectSales04.Areas.Identity.Data
+
+@inject ApplicationDbContext _dbContext
+
+<div class="form-group">
+
+    <label class="control-label">Select item status</label>
+
+    <select class="form-control" name="Status" >
+        @foreach (var saleItem in Enum.GetValues<ItemStatus>() )
+        {
+            <!option value="@saleItem">
+                @saleItem.
+            </!option>
+        }
+    </select>
+
+</div>
