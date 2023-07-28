@@ -57,18 +57,55 @@ namespace DirectSales04.Controllers
         // POST: Products/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,Title,Image,Description,SKU,Price")] Product product)
+        public async Task<IActionResult> Create([Bind("ProductId,Title,Image,Description,SKU,Price")] Product product,
+            IFormFile? Image,
+            int categoryId)
         {
             if (ModelState.IsValid)
             {
+
+                try
+                {
+
+                    var imageName = Image.FileName.ToLower();
+
+                    var saveImagePath = Path.Combine(
+                        Directory.GetCurrentDirectory(),
+                        "wwwroot/images/products",
+                        imageName
+                    );
+                    Directory.CreateDirectory(Path.GetDirectoryName(saveImagePath));
+
+                    using (var stream = new FileStream(saveImagePath, FileMode.Create))
+                    {
+                        Image.CopyTo(stream);
+                    }
+                    product.Image = imageName;
+
+                }
+                catch (Exception ex)
+                {
+                    TempData["ErrorMessage"] = ex.Message;
+                    return RedirectToAction(nameof(Create));
+                }
+
+
+
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(product);
         }
+
+
+
+
+
+
 
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -83,15 +120,30 @@ namespace DirectSales04.Controllers
             {
                 return NotFound();
             }
+
+            ViewBag.ProductCategories = _context.ProductCategorie.Where(
+                    p => p.ProductId == product.ProductId
+                ).Select(
+                    c => c.CategoryId
+                ).ToList();
+
+            // Ako postoji error poruka, spremi u ViewBag svojstvo
+            ViewBag.ErrorMessage = TempData["ErrorMessage"] ?? "";
+
+
             return View(product);
         }
 
         // POST: Products/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,Title,Image,Description,SKU,Price")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,Title,Image,Description,SKU,Price")] Product product,
+           IFormFile? newImage,
+           int categoryId)
         {
             if (id != product.ProductId)
             {
@@ -102,8 +154,38 @@ namespace DirectSales04.Controllers
             {
                 try
                 {
+                    if (newImage != null)
+                    {
+                        var newImageName = DateTime.Now.ToString("yyyyMMddhhmmss") + "_" + newImage.FileName.ToLower().Replace(" ", "_");
+                        var saveImagePath = Path.Combine(
+                            Directory.GetCurrentDirectory(),
+                            "wwwroot/images/products",
+                            newImageName
+                        );
+                        Directory.CreateDirectory(Path.GetDirectoryName(saveImagePath));
+                        using (var stream = new FileStream(saveImagePath, FileMode.Create))
+                        {
+                            newImage.CopyTo(stream);
+                        }
+                        product.Image = newImageName;
+
+                    }
                     _context.Update(product);
                     await _context.SaveChangesAsync();
+                    _context.ProductCategorie.RemoveRange(
+                            _context.ProductCategorie.Where(p => p.ProductId == id)
+                        );
+                    _context.SaveChanges();
+                    ProductCategorie productCategory = new ProductCategorie();
+                    productCategory.ProductId = product.ProductId;
+                    productCategory.CategoryId = categoryId;
+
+                    _context.Add(productCategory);
+                    _context.SaveChanges();
+
+
+
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -120,6 +202,9 @@ namespace DirectSales04.Controllers
             }
             return View(product);
         }
+
+
+
 
         // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
