@@ -35,4 +35,4 @@ Napomena: Morat ćete promijeniti "connectin string" u datoteci `appsettings.jso
 
 ## Pomoć
 
-Ako vam treba pomoć s ovim projektom, rješanje možete potražit direktno od autora putem posta na GitHub/Issues ili putem epošte.
+Ako vam treba pomoć s ovim projektom, rješenje možete potražit direktno od autora putem posta na GitHub/Issues ili putem epošte.
