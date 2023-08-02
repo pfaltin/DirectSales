@@ -60,44 +60,54 @@ namespace DirectSales04.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,Title,Image,Description,SKU,Price")] Product product,
-            IFormFile? Image,
+        public async Task<IActionResult> Create([Bind("Title,Description,SKU,Image,Price")] Product product,
+            IFormFile? ProductImage,
             int categoryId)
         {
-            if (ModelState.IsValid)
+            if (ProductImage != null)
             {
-
-                try
+                var newImageName = DateTime.Now.ToString("yyyyMMddhhmmss") + "_" + ProductImage.FileName.ToLower().Replace(" ", "_");
+                var saveImagePath = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot/images/products",
+                    newImageName );
+                Directory.CreateDirectory(Path.GetDirectoryName(saveImagePath));
+                using (var stream = new FileStream(saveImagePath, FileMode.Create))
                 {
-
-                    var imageName = Image.FileName.ToLower();
-
-                    var saveImagePath = Path.Combine(
-                        Directory.GetCurrentDirectory(),
-                        "wwwroot/images/products",
-                        imageName
-                    );
-                    Directory.CreateDirectory(Path.GetDirectoryName(saveImagePath));
-
-                    using (var stream = new FileStream(saveImagePath, FileMode.Create))
-                    {
-                        Image.CopyTo(stream);
-                    }
-                    product.Image = imageName;
-
+                    ProductImage.CopyTo(stream);
                 }
-                catch (Exception ex)
-                {
-                    TempData["ErrorMessage"] = ex.Message;
-                    return RedirectToAction(nameof(Create));
-                }
+                product.Image = newImageName;
 
-
-
-                _context.Add(product);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
             }
+
+            if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        _context.Add(product);
+                        await _context.SaveChangesAsync();
+                        _context.SaveChanges();
+
+                        ProductCategorie productCategory = new ProductCategorie();
+                        productCategory.ProductId = product.ProductId;
+                        productCategory.CategoryId = categoryId;
+                        _context.Add(productCategory);
+                        _context.SaveChanges();
+
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!ProductExists(product.ProductId))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction(nameof(Index));
+                }
             return View(product);
         }
 
